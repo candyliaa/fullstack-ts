@@ -67,13 +67,17 @@ const calculateExercises = (days: number[], target: number): Result => {
     };
 };
 
-try {
-    const { dayHours, target } = parseArgs(process.argv);
-    console.log(calculateExercises(dayHours, target));
-} catch (error) {
-    let errorMessage = 'Error occurred!';
-    if (error instanceof Error) {
-        errorMessage += ' Error: ' + error.message;
+if (require.main === module) {
+    try {
+        const { dayHours, target } = parseArgs(process.argv);
+        console.log(calculateExercises(dayHours, target));
+    } catch (error) {
+        let errorMessage = 'Error occurred!';
+        if (error instanceof Error) {
+            errorMessage += ' Error: ' + error.message;
+        }
+        console.log(errorMessage);
     }
-    console.log(errorMessage);
 }
+
+export default calculateExercises;
