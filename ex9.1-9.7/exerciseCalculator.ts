@@ -8,6 +8,27 @@ interface Result {
     average: number
 }
 
+interface exerciseParams {
+    dayHours: number[]
+    target: number
+}
+
+const parseArgs = (args: string[]): exerciseParams => {
+    if (args.length < 3) {
+        throw new Error('Too few arguments');
+    }
+
+    if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+        return {
+            dayHours: args.slice(3).map(arg => Number(arg)),
+            target: Number(args[2])
+        }
+
+  } else {
+    throw new Error('Provided arguments are invalid!');
+  }
+}
+
 const calculateExercises = (days: number[], target: number): Result => {
     const sum = days.reduce((acc: number, c: number) => acc + c, 0);
     const average: number = sum / days.length;
@@ -46,4 +67,13 @@ const calculateExercises = (days: number[], target: number): Result => {
     };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+try {
+    const { dayHours, target } = parseArgs(process.argv);
+    console.log(calculateExercises(dayHours, target));
+} catch (error) {
+    let errorMessage = 'Error occurred!';
+    if (error instanceof Error) {
+        errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
+}
