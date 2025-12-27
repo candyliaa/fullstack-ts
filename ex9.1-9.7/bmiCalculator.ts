@@ -1,3 +1,5 @@
+require.main === module
+
 interface BMIParams {
     height: number;
     weight: number;
@@ -45,3 +47,5 @@ try {
     }
     console.log(errorMessage);
 }
+
+export default calculateBmi;
