@@ -22,12 +22,12 @@ const parseArgs = (args: string[]): exerciseParams => {
         return {
             dayHours: args.slice(3).map(arg => Number(arg)),
             target: Number(args[2])
-        }
+        };
 
   } else {
     throw new Error('Provided arguments are invalid!');
   }
-}
+};
 
 const calculateExercises = (days: number[], target: number): Result => {
     const sum = days.reduce((acc: number, c: number) => acc + c, 0);
