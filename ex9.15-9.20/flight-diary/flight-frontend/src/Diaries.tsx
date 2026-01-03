@@ -1,9 +1,30 @@
 import { useEffect, useState } from 'react';
 import type { Diary } from './types';
-import { getAllDiaries } from './diaryService';
+import { createDiary, getAllDiaries } from './diaryService';
 
 const Diaries = () => {
     const [diaries, setDiaries] = useState<Diary[]>([]);
+    const [newDate, setNewDate] = useState('');
+    const [newWeather, setNewWeather] = useState('');
+    const [newVisibility, setNewVisibility] = useState('');
+    const [newComment, setNewComment] = useState('');
+
+    const diaryCreation = (event: React.SyntheticEvent) => {
+        event.preventDefault()
+        createDiary({ 
+              date: newDate,
+              weather: newWeather,
+              visibility: newVisibility,
+              comment: newComment
+            }).then(data => {
+            setDiaries(diaries.concat(data))
+        })
+
+        setNewDate('');
+        setNewWeather('');
+        setNewVisibility('');
+        setNewComment('');
+    }
 
     useEffect(() => {
         getAllDiaries().then(data => {
@@ -13,6 +34,34 @@ const Diaries = () => {
 
     return (
         <div>
+            <h2>Add new diary</h2>
+            <form onSubmit={diaryCreation}>
+                date
+                <input
+                    value={newDate}
+                    onChange={(event) => setNewDate(event.target.value)}
+                />
+                <br />
+                visibility
+                <input
+                    value={newVisibility}
+                    onChange={(event) => setNewVisibility(event.target.value)}
+                />
+                <br />
+                weather
+                <input
+                    value={newWeather}
+                    onChange={(event) => setNewWeather(event.target.value)}
+                />
+                <br />
+                comment
+                <input
+                    value={newComment}
+                    onChange={(event) => setNewComment(event.target.value)}
+                />
+                <br />
+                <button type='submit'>add diary</button>
+            </form>
             {diaries.map(diary => (
             <div key={diary.id}>
                 <h2>{diary.date}</h2>

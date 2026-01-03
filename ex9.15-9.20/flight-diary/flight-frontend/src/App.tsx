@@ -1,4 +1,5 @@
 import Diaries from './Diaries'
+import { createDiary } from './diaryService'
 
 const App = () => {
   return (
