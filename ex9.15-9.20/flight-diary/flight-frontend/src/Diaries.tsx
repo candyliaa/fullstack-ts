@@ -53,23 +53,51 @@ const Diaries = () => {
                 </div>
             )}
             <form onSubmit={diaryCreation}>
-                date
-                <input
-                    value={newDate}
-                    onChange={(event) => setNewDate(event.target.value)}
-                />
+                <div>
+                    <label>
+                    date:
+                    <input
+                        type="date"
+                        value={newDate}
+                        onChange={event => setNewDate(event.target.value)}
+                        required
+                    />
+                    </label>
+                </div>
                 <br />
-                visibility
-                <input
-                    value={newVisibility}
-                    onChange={(event) => setNewVisibility(event.target.value)}
-                />
+                    <div>
+                        <p>visibility:</p>
+                        {['great', 'good', 'ok', 'poor'].map(option => (
+                        <label key={option}>
+                            <input
+                            type="radio"
+                            name="visibility"
+                            value={option}
+                            checked={newVisibility === option}
+                            onChange={event => setNewVisibility(event.target.value)}
+                            required
+                            />
+                            {option}
+                        </label>
+                        ))}
+                    </div>
                 <br />
-                weather
-                <input
-                    value={newWeather}
-                    onChange={(event) => setNewWeather(event.target.value)}
-                />
+                  <div>
+                    <p>weather:</p>
+                    {['sunny', 'rainy', 'cloudy', 'stormy'].map(option => (
+                    <label key={option}>
+                        <input
+                        type="radio"
+                        name="weather"
+                        value={option}
+                        checked={newWeather === option}
+                        onChange={event => setNewWeather(event.target.value)}
+                        required
+                        />
+                        {option}
+                    </label>
+                    ))}
+                </div>
                 <br />
                 comment
                 <input
@@ -79,6 +107,7 @@ const Diaries = () => {
                 <br />
                 <button type='submit'>add diary</button>
             </form>
+
             {diaries.map(diary => (
             <div key={diary.id}>
                 <h2>{diary.date}</h2>
