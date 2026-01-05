@@ -27,8 +27,21 @@ const PatientDetailsPage = () => {
     return (
         <>
             <Typography variant="h3">{patient.name} {patient.gender}</Typography>
-            <Typography> ssh: {patient.ssn}</Typography>
+            <Typography> ssn: {patient.ssn}</Typography>
             <Typography>occupation: {patient.occupation}</Typography>
+            <Typography variant="h4">entries</Typography>
+            {patient.entries.map(entry => (
+                <div key={entry.id}>
+                    <Typography>
+                        {entry.date} <i>{entry.description}</i>
+                    </Typography>
+                    <ul>
+                        {entry.diagnosisCodes?.map(code => (
+                            <li key={code}>{code}</li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
         </>
     );
 };
